@@ -1,0 +1,10 @@
+{% extends 'formulario.html' %}
+{% block contenido %}
+<form method="POST" action="/personas/crear" enctype='multipart/form-data'>
+<h2>USUARIO</h2>
+Nombre: <input type="text" name="Nombre" placeholder="Nombre">
+Apellido:<input type="text" name="Nombre" placeholder="Apellido">
+Documento: <input type="text" name="Nombre" placeholder="Documento">
+<input type="button" value="Guardar" id="boton">
+</form>
+{% endblock %}
