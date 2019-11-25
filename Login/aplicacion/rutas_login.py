@@ -6,7 +6,7 @@ from .modelos import db, Login
 @app.route('/personas/')
 def personas():
     personas = Login.get_all()
-    return render_template("personas/index.html",
+    return render_template("personas/crear.html",
                            personas=personas,
                            titulo='personas')
 
@@ -16,5 +16,6 @@ def persona_crear():
     return render_template("personas/crear.html",
                            personas=personas,
                            titulo='Crear nuevo')
+
 
 
