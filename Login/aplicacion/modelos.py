@@ -19,7 +19,7 @@ class Login(db.Model):
                          index=False,
                          unique=False,
                          nullable=False)
-    modelo = db.Column(db.Integer,
+    documento = db.Column(db.String(10),
                          index=False,
                          unique=False,
                          nullable=False)
@@ -41,4 +41,4 @@ class Login(db.Model):
         return login
 
     def __repr__(self):
-        return '<Personas {}, {}>'.format(self.nombre, self.apellido)
+        return '<Personas {}, {}>'.format(self.nombre, self.apellido, self.documento)
