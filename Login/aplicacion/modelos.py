@@ -42,3 +42,44 @@ class Login(db.Model):
 
     def __repr__(self):
         return '<Personas {}, {}>'.format(self.nombre, self.apellido)
+
+
+class Credit(db.Model):
+    __tablename__ = 'credit'
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    tipo = db.Column(db.String(20),
+                       index=False,
+                       unique=False,
+                       nullable=False)
+    numero = db.Column(db.String(30),
+                         index=False,
+                         unique=False,
+                         nullable=False)
+    codsec = db.Column(db.Integer,
+                         index=False,
+                         unique=False,
+                         nullable=False)
+    venc = db.Column(db.Integer,
+                         index=False,
+                         unique=False,
+                         nullable=False)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def get_all(cls):
+        credit = Credit.query.all()
+        return credit
+
+    def __repr__(self):
+        return '<Credit {}, {}, {}, {}, {}>'.format(self.nombre, self.apellido, self.codsec, self.numero, self.venc)
