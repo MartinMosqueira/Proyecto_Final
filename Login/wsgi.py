@@ -1,5 +1,5 @@
+from aplicacion_demo import create_app
 from dotenv import load_dotenv
-from aplicacion import create_app
 
 load_dotenv()
 app = create_app()
