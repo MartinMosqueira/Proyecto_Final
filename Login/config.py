@@ -1,5 +1,6 @@
 from os import environ
 
+
 class Config:
     """Set Flask configuration vars from .env file."""
 
@@ -7,5 +8,5 @@ class Config:
     #SERVER_NAME = environ.get("SERVER_NAME")
 
     # Database
-    SQLALCHEMY_DATABASE_URI = environ.get("SQLALCHEMY_DATABASE_URI")
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = environ.get("SQLALCHEMY_TRACK_MODIFICATIONS")
