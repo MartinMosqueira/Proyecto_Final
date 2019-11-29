@@ -16,6 +16,7 @@ def create_app():
         from . import rutas_persona
         from . import rutas_inicio
         from . import ruta_prueba
+        from . import rutas_tarjeta
 
         # Create tables for our models
         db.create_all()

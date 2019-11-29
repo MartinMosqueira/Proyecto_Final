@@ -1,0 +1,34 @@
+{% extends 'estructura.html' %}
+{% block contenido %}
+    <div>Opciones</div>
+    <div>
+        <span><a href="crear">Crear una Tarjeta</a><br></span>
+    </div>
+    <h3>Tarjetas</h3>
+    <table>
+        <thead>
+            <td>| Num</td>
+            <td>| ID</td>
+            <td>| Tipo</td>
+            <td>| Numero</td>
+            <td>| Cod.Seguridad</td>
+            <td>| Vencimiento</td>
+            <td>| Monto Maximo</td>
+            <td>| Eliminar</td>
+        </thead>
+        <tbody>
+        {% for tarjeta in tarjetas %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ tarjeta.id }}</td>
+                <td>{{ tarjeta.tipo}}</td>
+                <td>{{ tarjeta.numero }}</td>
+                <td>{{ tarjeta.cods }}</td>
+                <td>{{ tarjeta.vencimiento }}</td>
+                <td>{{ tarjeta.montomax }}</td>
+                <td><a href="delete?id={{ tarjeta.id }}">Eliminar</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

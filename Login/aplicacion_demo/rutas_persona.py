@@ -5,11 +5,10 @@ from .modelos import db, Persona
 
 @app.route('/persona/')
 def pers():
-    #personas = Persona.query.all()
     personas = Persona.get_all()
     return render_template("persona/index.html",
                            personas=personas,
-                           titulo='personas')
+                           titulo='Personas')
 
 
 @app.route("/persona/crear", methods=["GET"])

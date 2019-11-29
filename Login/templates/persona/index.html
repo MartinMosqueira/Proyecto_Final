@@ -8,12 +8,12 @@
     <table>
         <thead>
             <td>Num</td>
-            <td>ID</td>
-            <td>Nombre</td>
-            <td>Apellido</td>
-            <td>Documento</td>
-            <td>Detalles</td>
-            <td>Eliminar</td>
+            <td>| ID</td>
+            <td>| Nombre</td>
+            <td>| Apellido</td>
+            <td>| Documento</td>
+            <td>| Detalles</td>
+            <td>| Eliminar</td>
         </thead>
         <tbody>
         {% for persona in personas %}
@@ -23,8 +23,8 @@
                 <td>{{ persona.nombre }}</td>
                 <td>{{ persona.apellido }}</td>
                 <td>{{ persona.documento }}</td>
-                <td><a href="detalle?id={{ persona.id }}">detalles</a></td>
-                <td><a href="delete?id={{ persona.id }}">eliminar</a></td>
+                <td><a href="detalle?id={{ persona.id }}">Detalles</a></td>
+                <td><a href="delete?id={{ persona.id }}">Eliminar</a></td>
             </tr>
         {% endfor %}
         </tbody>
