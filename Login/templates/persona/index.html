@@ -2,9 +2,12 @@
 {% block contenido %}
     <div>Opciones</div>
     <div>
-        <span><a href="crear">Crear una persona</a><br></span>
+        <span><a href="crear">Crear</a><br></span>
     </div>
     <h3>Personas</h3>
+    {% if personas|length < 1 %}
+    <h4 style="text-align: center">Aun no hay personas. Crea una!</h4>
+    {% else %}
     <table>
         <thead>
             <td>Num</td>
@@ -29,4 +32,5 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 {% endblock %}

@@ -1,5 +1,4 @@
 from flask import request, render_template, redirect, url_for, make_response
-from datetime import datetime as dt
 from flask import current_app as app
 from .modelos import db, Persona
 

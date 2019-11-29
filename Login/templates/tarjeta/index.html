@@ -2,12 +2,15 @@
 {% block contenido %}
     <div>Opciones</div>
     <div>
-        <span><a href="crear">Crear una Tarjeta</a><br></span>
+        <span><a href="crear">Crear</a><br></span>
     </div>
     <h3>Tarjetas</h3>
+    {% if tarjetas|length < 1 %}
+    <h4 style="text-align: center">Aun no hay tarjetas. Crea una!</h4>
+    {% else %}
     <table>
         <thead>
-            <td>| Num</td>
+            <td>Num</td>
             <td>| ID</td>
             <td>| Tipo</td>
             <td>| Numero</td>
@@ -31,4 +34,5 @@
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 {% endblock %}
