@@ -42,3 +42,18 @@ def tarj_delete():
     db.session.delete(tarjeta)
     db.session.commit()
     return redirect('/tarjeta')
+
+@app.route('/tarjeta/update', methods=['GET', 'POST'])
+def tarj_update():
+    tarjeta_id = int(request.args['id'])
+    tarjeta = Tarjeta.find_by_id(tarjeta_id)
+    if request.method == 'POST':
+        tarjeta.tipo = request.form.get('tipo')
+        tarjeta.numero = request.form.get('numero')
+        tarjeta.cods = request.form.get('cods')
+        tarjeta.vencimiento = request.form.get('vencimiento')
+        tarjeta.montomax = request.form.get('montomax')
+        db.session.commit()
+        return redirect('/tarjeta')
+    else:
+        return render_template('/tarjeta/update.html', tarjeta=tarjeta)

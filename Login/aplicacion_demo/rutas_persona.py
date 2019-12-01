@@ -63,3 +63,16 @@ def pers_delete():
     db.session.delete(persona)
     db.session.commit()
     return redirect('/persona')
+
+@app.route('/persona/update', methods=['GET', 'POST'])
+def update():
+    persona_id = int(request.args['id'])
+    persona = Persona.find_by_id(persona_id)
+    if request.method == 'POST':
+        persona.nombre = request.form.get('nombre')
+        persona.apellido = request.form.get('apellido')
+        persona.documento = request.form.get('documento')
+        db.session.commit()
+        return redirect('/persona')
+    else:
+        return render_template('/persona/update.html', persona=persona)

@@ -43,6 +43,7 @@ class Tarjeta(db.Model):
     
     personas = relationship("Persona", secondary='tarjetapersona')
 
+
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -98,3 +99,46 @@ class Persona(db.Model):
 
     def __repr__(self):
         return '<Persona {}, {}, {}>'.format(self.apellido, self.nombre, self.documento)
+
+
+#venta_persona = Table('association', Base.metadata,
+#                          Column('venta_id', Integer, ForeignKey('venta.id')),
+#                          Column('persona_id', Integer, ForeignKey('persona.id'))
+#                          )
+
+#class VentaPersona(db.Model):
+#    __tablename__ = 'ventapersona'
+#    venta_id = Column(Integer, ForeignKey('venta.id'), primary_key=True)
+#    persona_id = Column(Integer, ForeignKey('persona.id'), primary_key=True)
+
+
+class Venta(db.Model):
+    __tablename__ = 'venta'
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    monto = db.Column(db.String(80),
+                         index=False,
+                         unique=False,
+                         nullable=False)
+
+#    tarjeta = relationship("Tarjeta", secondary='ventatarjeta')
+#    cliente = relationship("Persona", secondary='ventapersona')
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def update(self):
+        db.session.commit()
+
+    @classmethod
+    def find_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+
+    @classmethod
+    def get_all(cls):
+        venta = Venta.query.all()
+        return venta
+
+    def __repr__(self):
+        return '<Venta {}, {}, {}>'.format(self.cliente, self.tarjeta, self.monto)

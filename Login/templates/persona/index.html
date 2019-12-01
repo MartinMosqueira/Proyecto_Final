@@ -17,6 +17,7 @@
             <td>| Documento</td>
             <td>| Detalles</td>
             <td>| Eliminar</td>
+            <td>| Actualizar</td>
         </thead>
         <tbody>
         {% for persona in personas %}
@@ -28,6 +29,7 @@
                 <td>{{ persona.documento }}</td>
                 <td><a href="detalle?id={{ persona.id }}">Detalles</a></td>
                 <td><a href="delete?id={{ persona.id }}">Eliminar</a></td>
+                <td><a href="update?id={{ persona.id }}">Actualizar</a></td>
             </tr>
         {% endfor %}
         </tbody>

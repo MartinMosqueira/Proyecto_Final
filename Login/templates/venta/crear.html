@@ -1,0 +1,10 @@
+{% extends 'estructura.html' %}
+{% block contenido %}
+    <form method="POST" action="/venta/crear" enctype='multipart/form-data'>
+        Cliente: <input type="text" name="cliente"><br>
+        Tarjeta: <input type="text" name="tarjeta"><br>
+        Monto: <input type="text" name="monto"><br>
+        <input type="submit" value="Agregar">
+    </form>
+
+{% endblock %}
