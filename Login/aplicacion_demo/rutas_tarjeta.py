@@ -1,6 +1,6 @@
 from flask import request, render_template, redirect, url_for, make_response
 from flask import current_app as app
-from .modelos import db, Persona, Tarjeta
+from .modelos import db, Persona, Tarjeta, Venta
 
 @app.route('/tarjeta/')
 def tarjeta():
@@ -57,3 +57,9 @@ def tarj_update():
         return redirect('/tarjeta')
     else:
         return render_template('/tarjeta/update.html', tarjeta=tarjeta)
+
+@app.route("/tarjeta/detalle", methods=['GET'])
+def tarj_detalles():
+    tarjeta_id = int(request.args['id'])
+    tarjeta = Tarjeta.find_by_id(tarjeta_id)
+    return render_template("tarjeta/detalle.html", tarjeta=tarjeta)
