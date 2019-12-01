@@ -2,18 +2,21 @@
 {% block contenido %}
     <div>Opciones</div>
     <div>
-        <span><a href="crear">Crear una persona</a><br></span>
+        <span><a href="crear">Crear</a><br></span>
     </div>
     <h3>Personas</h3>
+    {% if personas|length < 1 %}
+    <h4 style="text-align: center">Aun no hay personas. Crea una!</h4>
+    {% else %}
     <table>
         <thead>
             <td>Num</td>
-            <td>ID</td>
-            <td>Nombre</td>
-            <td>Apellido</td>
-            <td>Documento</td>
-            <td>Detalles</td>
-            <td>Eliminar</td>
+            <td>| ID</td>
+            <td>| Nombre</td>
+            <td>| Apellido</td>
+            <td>| Documento</td>
+            <td>| Detalles</td>
+            <td>| Eliminar</td>
         </thead>
         <tbody>
         {% for persona in personas %}
@@ -23,10 +26,11 @@
                 <td>{{ persona.nombre }}</td>
                 <td>{{ persona.apellido }}</td>
                 <td>{{ persona.documento }}</td>
-                <td><a href="detalle?id={{ persona.id }}">detalles</a></td>
-                <td><a href="delete?id={{ persona.id }}">eliminar</a></td>
+                <td><a href="detalle?id={{ persona.id }}">Detalles</a></td>
+                <td><a href="delete?id={{ persona.id }}">Eliminar</a></td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
+    {% endif %}
 {% endblock %}

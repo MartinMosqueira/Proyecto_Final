@@ -8,5 +8,5 @@ class Config:
     #SERVER_NAME = environ.get("SERVER_NAME")
 
     # Database
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///site.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///sites.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = environ.get("SQLALCHEMY_TRACK_MODIFICATIONS")

@@ -1,15 +1,13 @@
 from flask import request, render_template, redirect, url_for, make_response
-from datetime import datetime as dt
 from flask import current_app as app
 from .modelos import db, Persona
 
 @app.route('/persona/')
 def pers():
-    #personas = Persona.query.all()
     personas = Persona.get_all()
     return render_template("persona/index.html",
                            personas=personas,
-                           titulo='personas')
+                           titulo='Personas')
 
 
 @app.route("/persona/crear", methods=["GET"])
