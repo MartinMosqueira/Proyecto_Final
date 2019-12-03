@@ -1,6 +1,7 @@
-from flask import request, render_template, redirect, url_for, make_response
+from flask import request, render_template, redirect, url_for, make_response, jsonify, Response
 from flask import current_app as app
-from .modelos import db, Persona
+from .modelos import db, Persona, Tarjeta, Venta
+import json
 
 @app.route('/persona/')
 def pers():
@@ -48,13 +49,17 @@ def pers_agregar():
         pers1 = Persona(nombre=nombre, apellido=apellido, documento= documento)
         db.session.add(pers1)
         db.session.commit()
-    return redirect(url_for('pers'))
+    return jsonify(nombre=nombre, apellido=apellido, documento=documento)
+    #return redirect(url_for('pers'))
+
 
 @app.route("/persona/detalle", methods=['GET'])
 def pers_detalles():
     persona_id = int(request.args['id'])
     persona = Persona.find_by_id(persona_id)
-    return render_template("persona/detalle.html", persona=persona)
+    return jsonify(ID=persona_id)
+    #return render_template("persona/detalle.html", persona=persona)
+
 
 @app.route('/persona/delete')
 def pers_delete():

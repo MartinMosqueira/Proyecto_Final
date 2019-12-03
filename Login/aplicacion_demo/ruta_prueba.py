@@ -1,7 +1,7 @@
 from flask import request, render_template, redirect, url_for, make_response
 from datetime import datetime as dt
 from flask import current_app as app
-from .modelos import db, Persona
+from .modelos import db, Persona, Tarjeta, Venta
 
 @app.route('/prueba/<token>/<llamado>', methods=["GET","POST"])
 def probando(token, llamado):

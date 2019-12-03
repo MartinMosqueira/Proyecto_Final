@@ -10,10 +10,31 @@ tarjeta_persona = Table('association', Base.metadata,
                           Column('persona_id', Integer, ForeignKey('persona.id'))
                           )
 
+tarjeta_venta = Table('association2', Base.metadata,
+                          Column('tarjeta_id', Integer, ForeignKey('tarjeta.id')),
+                          Column('venta_id', Integer, ForeignKey('venta.id'))
+                          )
+
+persona_venta = Table('association3', Base.metadata,
+                          Column('persona_id', Integer, ForeignKey('persona.id')),
+                          Column('venta_id', Integer, ForeignKey('venta.id'))
+                          )
+
 class TarjetaPersona(db.Model):
     __tablename__ = 'tarjetapersona'
     tarjeta_id = Column(Integer, ForeignKey('tarjeta.id'), primary_key=True)
     persona_id = Column(Integer, ForeignKey('persona.id'), primary_key=True)
+
+class VentasTarjeta(db.Model):
+    __tablename__ = 'ventastarjeta'
+    tarjeta_id = Column(Integer, ForeignKey('tarjeta.id'), primary_key=True)
+    ventas_id = Column(Integer, ForeignKey('ventas.id'), primary_key=True)
+
+class VentasPersona(db.Model):
+    __tablename__ = 'ventaspersona'
+    ventas_id = Column(Integer, ForeignKey('ventas.id'), primary_key=True)
+    persona_id = Column(Integer, ForeignKey('persona.id'), primary_key=True)
+
 
 class Tarjeta(db.Model):
     __tablename__ = 'tarjeta'
@@ -40,9 +61,8 @@ class Tarjeta(db.Model):
                          unique=False,
                          nullable=False)
     
-    
     personas = relationship("Persona", secondary='tarjetapersona')
-
+    ventas2 = relationship("Venta", secondary='ventastarjeta')
 
     def save(self):
         db.session.add(self)
@@ -80,6 +100,7 @@ class Persona(db.Model):
                          unique=False,
                          nullable=False)
     tarjetas = relationship("Tarjeta", secondary='tarjetapersona')
+    ventas = relationship("Venta", secondary='ventaspersona')
 
     def save(self):
         db.session.add(self)
@@ -101,19 +122,8 @@ class Persona(db.Model):
         return '<Persona {}, {}, {}>'.format(self.apellido, self.nombre, self.documento)
 
 
-#venta_persona = Table('association', Base.metadata,
-#                          Column('venta_id', Integer, ForeignKey('venta.id')),
-#                          Column('persona_id', Integer, ForeignKey('persona.id'))
-#                          )
-
-#class VentaPersona(db.Model):
-#    __tablename__ = 'ventapersona'
-#    venta_id = Column(Integer, ForeignKey('venta.id'), primary_key=True)
-#    persona_id = Column(Integer, ForeignKey('persona.id'), primary_key=True)
-
-
 class Venta(db.Model):
-    __tablename__ = 'venta'
+    __tablename__ = 'ventas'
     id = db.Column(db.Integer,
                    primary_key=True)
     monto = db.Column(db.String(80),
@@ -121,8 +131,8 @@ class Venta(db.Model):
                          unique=False,
                          nullable=False)
 
-#    tarjeta = relationship("Tarjeta", secondary='ventatarjeta')
-#    cliente = relationship("Persona", secondary='ventapersona')
+    personas2 = relationship("Persona", secondary='ventaspersona')
+    tarjetas2 = relationship("Tarjeta", secondary='ventastarjeta')
 
     def save(self):
         db.session.add(self)
@@ -141,4 +151,4 @@ class Venta(db.Model):
         return venta
 
     def __repr__(self):
-        return '<Venta {}, {}, {}>'.format(self.cliente, self.tarjeta, self.monto)
+        return '<Venta : {}>'.format(self.monto)
