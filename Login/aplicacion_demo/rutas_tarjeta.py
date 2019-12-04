@@ -22,17 +22,20 @@ def tarj_agregar():
         tipo = request.form.get('tipo')
         numero = request.form.get('numero')
         cods = request.form.get('cods')
-        vencimiento = request.form.get('vencimiento')
+        mes = request.form.get('mes')
+        año = request.form.get('año')
         montomax = request.form.get('montomax')
         personas = request.form.getlist('personas')
-    if tipo and numero and cods and vencimiento and montomax:
-        tarj = Tarjeta(tipo=tipo, numero=numero, cods=cods, vencimiento=vencimiento, montomax=montomax)
+    if tipo and numero and cods and mes and 0 < int(mes) < 13 and año and int(año) > 2019 and montomax:
+        tarj = Tarjeta(tipo=tipo, numero=numero, cods=cods, mes=mes, año=año, montomax=montomax)
         db.session.add(tarj)
         db.session.commit()
         for persona_id in personas:
             persona = Persona.find_by_id(persona_id)
             persona.tarjetas.append(tarj)
             persona.update()
+    else:
+        return render_template('/tarjeta/errormes.html')
     return redirect(url_for('tarjeta'))
 
 @app.route('/tarjeta/delete')
@@ -51,9 +54,13 @@ def tarj_update():
         tarjeta.tipo = request.form.get('tipo')
         tarjeta.numero = request.form.get('numero')
         tarjeta.cods = request.form.get('cods')
-        tarjeta.vencimiento = request.form.get('vencimiento')
+        tarjeta.mes = request.form.get('mes')
+        tarjeta.año = request.form.get('año')
         tarjeta.montomax = request.form.get('montomax')
-        db.session.commit()
+        if 0 < int(tarjeta.mes) < 13  and int(tarjeta.año) > 2019:
+            db.session.commit()
+        else:
+            return render_template('/tarjeta/errormes.html')
         return redirect('/tarjeta')
     else:
         return render_template('/tarjeta/update.html', tarjeta=tarjeta)
