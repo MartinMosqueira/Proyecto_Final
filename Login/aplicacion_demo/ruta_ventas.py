@@ -22,7 +22,7 @@ def vent_agregar():
     if request.method == 'POST':
         monto = request.form.get('monto')
         tarjetas = request.form.getlist('tarjetas')
-    if monto:
+    if monto and int(monto) > 0 :
         vent = Venta(monto=monto)
         db.session.add(vent)
         db.session.commit()
@@ -30,6 +30,8 @@ def vent_agregar():
             tarjeta = Tarjeta.find_by_id(tarjeta_id)
             tarjeta.ventas2.append(vent)
             tarjeta.update()
+    else:
+        return render_template('/venta/error.html')
     return redirect(url_for('venta'))
 
 @app.route('/venta/delete')

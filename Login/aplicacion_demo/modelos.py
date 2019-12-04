@@ -95,10 +95,6 @@ class Persona(db.Model):
                          index=False,
                          unique=False,
                          nullable=False)
-    documento = db.Column(db.String(80),
-                         index=False,
-                         unique=False,
-                         nullable=False)
     tarjetas = relationship("Tarjeta", secondary='tarjetapersona')
     ventas = relationship("Venta", secondary='ventaspersona')
 
@@ -119,14 +115,14 @@ class Persona(db.Model):
         return personas
 
     def __repr__(self):
-        return '<Persona {}, {}, {}>'.format(self.apellido, self.nombre, self.documento)
+        return '<Persona {}, {}, {}>'.format(self.apellido, self.nombre)
 
 
 class Venta(db.Model):
     __tablename__ = 'ventas'
     id = db.Column(db.Integer,
                    primary_key=True)
-    monto = db.Column(db.String(80),
+    monto = db.Column(db.Integer,
                          index=False,
                          unique=False,
                          nullable=False)

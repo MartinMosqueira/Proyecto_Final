@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, url_for, make_response
+from flask import request, render_template, redirect, url_for, make_response, jsonify
 from flask import current_app as app
 from .modelos import db, Persona, Tarjeta, Venta
 
@@ -43,18 +43,20 @@ def pers_agregar():
     if request.method == 'POST':
         nombre = request.form.get('nombre')
         apellido = request.form.get('apellido')
-        documento = request.form.get('documento')
-    if nombre and apellido and documento:
-        pers1 = Persona(nombre=nombre, apellido=apellido, documento= documento)
+    if nombre and apellido:
+        pers1 = Persona(nombre=nombre, apellido=apellido)
         db.session.add(pers1)
         db.session.commit()
     return redirect(url_for('pers'))
+
 
 @app.route("/persona/detalle", methods=['GET'])
 def pers_detalles():
     persona_id = int(request.args['id'])
     persona = Persona.find_by_id(persona_id)
-    return render_template("persona/detalle.html", persona=persona)
+    tarjeta_id = int(request.args['id'])
+    tarjeta = Tarjeta.find_by_id(tarjeta_id)
+    return render_template("persona/detalle.html", persona=persona, tarjeta=tarjeta)
 
 @app.route('/persona/delete')
 def pers_delete():
@@ -71,7 +73,6 @@ def update():
     if request.method == 'POST':
         persona.nombre = request.form.get('nombre')
         persona.apellido = request.form.get('apellido')
-        persona.documento = request.form.get('documento')
         db.session.commit()
         return redirect('/persona')
     else:

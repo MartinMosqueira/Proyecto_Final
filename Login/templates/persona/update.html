@@ -3,7 +3,6 @@
     <form method="POST" action="/persona/update?id={{persona.id}}" enctype='multipart/form-data'>
         Nuevo nombre: <input type="text" name="nombre" value="{{persona.nombre}}">
         Nuevo apellido: <input type="text" name="apellido" value="{{persona.apellido}}">
-        Nuevo documento: <input type="text" name="documento" value="{{persona.documento}}">
       <input type="submit" value="Actualizar">
     </form>
 {% endblock %}
