@@ -15,11 +15,12 @@
             <td>| Tipo</td>
             <td>| Numero</td>
             <td>| Cod.Seguridad</td>
-            <td>| Vencimiento</td>
+            <td>| Mes</td>
+            <td>| Año</td>
             <td>| Monto Maximo</td>
-            <td>| Eliminar</td>
-            <td>| Actualizar</td>
             <td>| Detalles</td>
+            <td>| Actualizar</td>
+            <td>| Eliminar</td>
         </thead>
         <tbody>
         {% for tarjeta in tarjetas %}
@@ -29,11 +30,12 @@
                 <td>{{ tarjeta.tipo}}</td>
                 <td>{{ tarjeta.numero }}</td>
                 <td>{{ tarjeta.cods }}</td>
-                <td>{{ tarjeta.vencimiento }}</td>
+                <td>{{ tarjeta.mes }}</td>
+                <td>{{ tarjeta.año }}</td>
                 <td>{{ tarjeta.montomax }}</td>
-                <td><a href="delete?id={{ tarjeta.id }}">Eliminar</a></td>
-                <td><a href="update?id={{ tarjeta.id }}">Actualizar</a></td>
                 <td><a href="detalle?id={{ tarjeta.id }}">Detalles</a></td>
+                <td><a href="update?id={{ tarjeta.id }}">Actualizar</a></td>
+                <td><a href="delete?id={{ tarjeta.id }}">Eliminar</a></td>
             </tr>
         {% endfor %}
         </tbody>

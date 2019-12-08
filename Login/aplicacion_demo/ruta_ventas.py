@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, url_for, make_response
+from flask import request, render_template, redirect, url_for, make_response, jsonify
 from flask import current_app as app
 from .modelos import db, Persona, Tarjeta, Venta
 
@@ -17,31 +17,21 @@ def vent_crear():
                            tarjetas=tarjetas,
                            titulo='Crear nueva')
 
-@app.route("/venta/crear", methods=["GET"])
-def vent_crear1():
-    clientes = Persona.get_all()
-    return render_template("venta/crear.html",
-                           clientes=clientes,
-                           titulo='Crear nueva')
-
 @app.route("/venta/crear", methods=["POST"])
 def vent_agregar():
     if request.method == 'POST':
         monto = request.form.get('monto')
         tarjetas = request.form.getlist('tarjetas')
-        clientes = request.form.getlist('clientes')
-    if monto:
+    if monto and int(monto) > 0 :
         vent = Venta(monto=monto)
         db.session.add(vent)
         db.session.commit()
-        for clientes_id in clientes:
-            cliente = Persona.find_by_id(clientes_id)
-            cliente.ventas2.append(vent)
-            cliente.update()
         for tarjeta_id in tarjetas:
             tarjeta = Tarjeta.find_by_id(tarjeta_id)
             tarjeta.ventas2.append(vent)
             tarjeta.update()
+    else:
+        return render_template('/venta/error.html')
     return redirect(url_for('venta'))
 
 @app.route('/venta/delete')
@@ -62,4 +52,10 @@ def vent_update():
         return redirect('/venta')
     else:
         return render_template('/venta/update.html', venta=venta)
+
+
+#@app.errorhandler(404)
+#def page_not_found(e):
+#    return jsonify(codError=10, error='error en la tarjeta de credito'),404
+
 

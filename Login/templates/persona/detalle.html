@@ -16,9 +16,6 @@
             <tr>
                 <td>Apellido: </td><td>{{ persona.apellido }}</td>
             </tr>
-            <tr>
-                <td>Documento: </td><td>{{ persona.documento }}</td>
-            </tr>
         </tbody>
     </table>
 
@@ -44,6 +41,21 @@
                 </tr>
                 <tr>
                 <td>Monto Maximo: </td><td>{{ tarjeta.montomax }} </td>
+                </tr>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h2>Detalle de las Ventas</h2>
+    <table>
+        <tbody>
+        {% for venta in tarjeta.ventas2 %}
+            <tr>
+                <tr>
+                <td>ID: </td><td>{{ venta.id }} </td>
+                </tr>
+                <tr>
+                <td>Monto: </td><td>{{ venta.monto }} </td>
                 </tr>
             </tr>
         {% endfor %}

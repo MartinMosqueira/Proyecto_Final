@@ -35,7 +35,7 @@ class VentasPersona(db.Model):
     ventas_id = Column(Integer, ForeignKey('ventas.id'), primary_key=True)
     persona_id = Column(Integer, ForeignKey('persona.id'), primary_key=True)
 
-
+#########################
 class Tarjeta(db.Model):
     __tablename__ = 'tarjeta'
     id = db.Column(db.Integer,
@@ -52,7 +52,11 @@ class Tarjeta(db.Model):
                          index=False,
                          unique=False,
                          nullable=False)
-    vencimiento = db.Column(db.String(80),
+    mes = db.Column(db.String(10),
+                         index=False,
+                         unique=False,
+                         nullable=False)
+    año = db.Column(db.String(10),
                          index=False,
                          unique=False,
                          nullable=False)
@@ -81,7 +85,7 @@ class Tarjeta(db.Model):
         return tarjetas
 
     def __repr__(self):
-        return '<Tarjeta {}, {}, {}, {}, {}>'.format(self.tipo, self.numero, self.cods, self.vencimiento, self.montomax)
+        return '<Tarjeta {}, {}, {}, {}, {}, {}>'.format(self.tipo, self.numero, self.cods, self.mes, self.año, self.montomax)
 
 class Persona(db.Model):
     __tablename__ = 'persona'
@@ -92,10 +96,6 @@ class Persona(db.Model):
                        unique=False,
                        nullable=False)
     apellido = db.Column(db.String(80),
-                         index=False,
-                         unique=False,
-                         nullable=False)
-    documento = db.Column(db.String(80),
                          index=False,
                          unique=False,
                          nullable=False)
@@ -119,14 +119,14 @@ class Persona(db.Model):
         return personas
 
     def __repr__(self):
-        return '<Persona {}, {}, {}>'.format(self.apellido, self.nombre, self.documento)
+        return '<Persona {}, {}, {}>'.format(self.apellido, self.nombre)
 
 
 class Venta(db.Model):
     __tablename__ = 'ventas'
     id = db.Column(db.Integer,
                    primary_key=True)
-    monto = db.Column(db.String(80),
+    monto = db.Column(db.Integer,
                          index=False,
                          unique=False,
                          nullable=False)

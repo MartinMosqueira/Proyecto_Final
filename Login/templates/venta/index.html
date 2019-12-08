@@ -13,6 +13,8 @@
             <td>Num</td>
             <td>| ID</td>
             <td>| Monto</td>
+            <td>| Actualizar</td>
+            <td>| Eliminar</td>
         </thead>
         <tbody>
         {% for venta in ventas %}
@@ -20,8 +22,8 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ venta.id }}</td>
                 <td>{{ venta.monto}}</td>
-                <td><a href="delete?id={{ venta.id }}">Eliminar</a></td>
                 <td><a href="update?id={{ venta.id }}">Actualizar</a></td>
+                <td><a href="delete?id={{ venta.id }}">Eliminar</a></td>
             </tr>
         {% endfor %}
         </tbody>

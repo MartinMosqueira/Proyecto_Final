@@ -1,22 +1,12 @@
 {% extends 'estructura.html' %}
 {% block contenido %}
-
     <form method="POST" action="/venta/crear" enctype='multipart/form-data'>
-      Monto: <input type="text" name="monto" ><br>
-      Tarjetas: <select name="tarjetas" multiple><br>
+      Monto: <input type="text" name="monto"><br>
+      Tarjetas: <select name="tarjetas" multiple>
         {% for tarjeta in tarjetas %}
             <option value="{{ tarjeta.id }}">{{ tarjeta.tipo }}, {{ tarjeta.numero }}</option>
         {% endfor %}
       </select>
-    <br>
-    <br>
-        Clientes: <select name="clientes" multiple><br>
-        {% for cliente in clientes %}
-            <option value="{{ cliente.id }}">{{ cliente.nombre }}, {{ cliente.apellido }}</option>
-        {% endfor %}
-      </select>
-    <br>
       <input type="submit" value="Agregar">
     </form>
-
 {% endblock %}
