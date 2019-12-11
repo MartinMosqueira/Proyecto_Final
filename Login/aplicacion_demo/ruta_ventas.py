@@ -22,7 +22,9 @@ def vent_agregar():
     if request.method == 'POST':
         monto = request.form.get('monto')
         tarjetas = request.form.getlist('tarjetas')
-    if monto and int(monto) > 0 :
+        for tarjeta_id in tarjetas:
+            tarjeta = Tarjeta.find_by_id(tarjeta_id)
+    if monto and int(monto) > 0 and int(monto) < int(tarjeta.montomax):
         vent = Venta(monto=monto)
         db.session.add(vent)
         db.session.commit()
