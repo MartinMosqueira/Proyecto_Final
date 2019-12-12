@@ -4,4 +4,3 @@ from flask import current_app as app
 @app.route("/", methods=["GET"])
 def pagina_principal():
     return render_template("home.html", titulo="MP-UM")
-

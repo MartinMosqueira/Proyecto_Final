@@ -1,6 +1,7 @@
 from flask import request, render_template, redirect, url_for, make_response, jsonify
 from flask import current_app as app
 from .modelos import db, Persona, Tarjeta, Venta
+import requests
 
 @app.route('/venta/')
 def venta():
@@ -22,7 +23,17 @@ def vent_agregar():
     if request.method == 'POST':
         monto = request.form.get('monto')
         tarjetas = request.form.getlist('tarjetas')
-    if monto and int(monto) > 0 :
+
+        url = 'http://127.0.0.1:8080/venta/'
+        response = requests.get(url)
+        if response.status_code == 200:
+            print('La venta ha sido exitosa')
+        if response.status_code == 403:
+            jsonify(codError=10, error='error en la tarjeta de credito')
+
+        for tarjeta_id in tarjetas:
+            tarjeta = Tarjeta.find_by_id(tarjeta_id)
+    if monto and int(monto) > 0 and int(monto) < int(tarjeta.montomax):
         vent = Venta(monto=monto)
         db.session.add(vent)
         db.session.commit()
@@ -53,9 +64,6 @@ def vent_update():
     else:
         return render_template('/venta/update.html', venta=venta)
 
-
 #@app.errorhandler(404)
 #def page_not_found(e):
 #    return jsonify(codError=10, error='error en la tarjeta de credito'),404
-
-

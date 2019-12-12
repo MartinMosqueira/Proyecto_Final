@@ -6,7 +6,7 @@ db = SQLAlchemy()
 def create_app():
     """Construct the core aplicacion_demo."""
     app = Flask(__name__, instance_relative_config=False,
-                template_folder="../templates/")
+                template_folder="../templates")
     db.init_app(app)
     app.config.from_object('config.Config')
 
