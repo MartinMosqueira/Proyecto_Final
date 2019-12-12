@@ -1,6 +1,7 @@
 from flask import request, render_template, redirect, url_for, make_response
 from flask import current_app as app
 from .modelos import db, Persona, Tarjeta, Venta
+import time
 
 @app.route('/tarjeta/')
 def tarjeta():
@@ -26,7 +27,7 @@ def tarj_agregar():
         año = request.form.get('año')
         montomax = request.form.get('montomax')
         personas = request.form.getlist('personas')
-    if tipo and numero and cods and mes and 0 < int(mes) < 13 and año and int(año) > 2019 and montomax:
+    if tipo and numero and cods and mes and 0 < int(mes) < 13 and año and int(año) > 2000+int(time.strftime("%y")) and montomax:
         tarj = Tarjeta(tipo=tipo, numero=numero, cods=cods, mes=mes, año=año, montomax=montomax)
         db.session.add(tarj)
         db.session.commit()
